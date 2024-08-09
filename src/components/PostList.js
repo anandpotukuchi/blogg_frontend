@@ -5,10 +5,17 @@ import { Link } from 'react-router-dom';
 const PostList = () => {
   const [posts, setPosts] = useState([]);
 
+
+
   useEffect(() => {
     axios.get('http://localhost:4000/posts')
-      .then(response => setPosts(response.data))
-      .catch(error => console.error('Error fetching posts:', error));
+      .then(response => {
+        const postsData = response.data.data; // Access the nested data array
+      setPosts(Array.isArray(postsData) ? postsData : []);
+      })
+      .catch(error => {
+        console.error('Error fetching posts:', error);
+      });
   }, []);
 
   return (

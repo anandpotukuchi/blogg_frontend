@@ -8,7 +8,14 @@ const PostDetail = () => {
 
   useEffect(() => {
     axios.get(`http://localhost:4000/posts/${id}`)
-      .then(response => setPost(response.data))
+    .then(response => {
+      const postData = response.data.data; // Access the nested data array
+    setPost(postData);
+    })  
+    
+    
+    
+    .then(response => setPost(response.data))
       .catch(error => console.error('Error fetching post:', error));
   }, [id]);
 
